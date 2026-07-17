@@ -4,10 +4,13 @@ import { AppModule } from './app.module';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   
-  // 🔓 เปิดสิทธิ์ CORS ให้ฝั่ง Next.js (Port 3001) ส่งข้อมูลมาหา NestJS ได้
+  // 🔓 เปิดสิทธิ์ CORS
   app.enableCors();
 
-  // 🔄 เปลี่ยนจากพอร์ต 3000 หนีมาพอร์ต 3005 เพื่อแก้ปัญหาพอร์ตชน (EADDRINUSE)
-  await app.listen(3005);
+  // ✅ แก้ไขส่วนนี้เพื่อให้รันบน Render ได้สำเร็จ:
+  // ใช้ process.env.PORT ถ้า Render กำหนดมาให้ แต่ถ้าไม่ใช้ 3005 ตามที่คุณตั้งไว้
+  // เพิ่ม '0.0.0.0' เพื่อเปิดให้ Network ภายนอกเข้าถึงได้
+  const port = process.env.PORT || 3005;
+  await app.listen(port, '0.0.0.0');
 }
 bootstrap();
