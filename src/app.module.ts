@@ -6,12 +6,13 @@ import { AppointmentsModule } from './appointments/appointments.module';
 
 @Module({
   imports: [
+    // ระบบจะเลือกใช้ MONGODB_URI จาก .env.local ก่อน ถ้าไม่มีจะใช้ String ด้านหลังแทนครับ
     MongooseModule.forRoot(
-      process.env.MONGODB_URI || 'mongodb://adminUser:Password123@localhost:27017/Project1?authSource=admin'
+      process.env.MONGODB_URI || 'mongodb+srv://pattanun:Password123@simpledata.8psx3qd.mongodb.net/appointify_db?appName=simpledata'
     ),
-    AppointmentsModule, // import module เข้ามาแค่นี้ก็พอ
+    AppointmentsModule,
   ],
-  controllers: [AppController], // Controller ของ Appointments จะถูกดึงมาจาก AppointmentsModule แล้ว
-  providers: [AppService], // Service ของ Appointments จะถูกดึงมาจาก AppointmentsModule แล้ว
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}
